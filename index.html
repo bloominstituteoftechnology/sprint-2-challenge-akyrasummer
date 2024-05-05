@@ -5,28 +5,85 @@
   <title>Web Sprint 2 Challenge</title>
   <script id="challenge">
     // 👉 CHALLENGE 1
+    let reason = "not logged in for 30 days"
     function profileActivation(profile, reason) {
-
+      if (profile.active) {
+        if (reason === undefined) {
+          return "confirm status manually";
+        } else {
+          profile.active = false;
+          profile.reason = reason;
+          return profile;
+        }
+      } else {
+        if (reason !== undefined) {
+          profile.active = true;
+          delete profile.reason;
+          return profile;
+        } else {
+          profile.active = true;
+          delete profile.reason;
+          return profile;
+        }
+      }
     }
 
     // 👉 CHALLENGE 2
     function mineSweeper(grid, x, y) {
-
+      if (x < 1 || y < 1 || x > 3 || y > 3) {
+        return "invalid coordinates";
+      }
+      if (grid[y - 1][x - 1] === "🟥") {
+        return "🟥 💀";
+      } else {
+        return "🟦 🥳";
+      }
     }
+    
 
     // 👉 CHALLENGE 3
     function booleanize(obj) {
-
+      for (let prop in obj) {
+        if (prop.length > 9) {
+          return "shorten all prop names to 9 chars or less";
+        }
+        if (obj[prop] === null) {
+          delete obj[prop];
+          continue;
+        }
+        if (obj[prop] === 0) {
+          obj[prop] = false;
+        } else if (obj[prop] === 1) {
+          obj[prop] = true;
+        }
+      }
+      return obj;
     }
 
     // 👉 CHALLENGE 4
     function scrub(text, forbidden) {
-
+      if (!text || forbidden.length === 0) {
+        return text;
+      }
+      const words = text.split(/\s+/);
+      const scrubbedText = words.map(word => {
+        if (forbidden.includes(word.toLowerCase())) {
+          return "x".repeat(word.length);
+        } else {
+          return word;
+        }
+      });
+      return scrubbedText.join(" ");
     }
 
     // 👉 CHALLENGE 5 (bonus, NOT graded)
     function normalizePhoneNumber(num) {
+      let areaCode = num.substring(0, 3);
+      let firstPart = num.substring(3, 6);
+      let secondPart = num.substring(6);
 
+      let formattedNumber = `(${areaCode}) ${firstPart}-${secondPart}`;
+      return formattedNumber;
     }
 
     // 👉 CHALLENGE 6 (bonus, NOT graded)
